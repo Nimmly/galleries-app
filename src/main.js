@@ -6,6 +6,8 @@ import 'bootstrap/dist/css/bootstrap.css'
 import AppGalleries from './pages/AppGalleries.vue'
 import Login from './pages/Login.vue'
 import Register from './pages/Register.vue'
+import MyGalleries from './pages/MyGalleries.vue'
+import CreateNewGallery from './pages/CreateNewGallery.vue'
 
 
 Vue.config.productionTip = false
@@ -15,6 +17,8 @@ const routes = [
   { path: '/', component: AppGalleries },
   { path: '/login', component: Login },
   { path: '/register', component: Register },
+  { path: '/my-galleries', component: MyGalleries },
+  { path: '/create', component: CreateNewGallery }
 ]
 
 const router = new VueRouter({

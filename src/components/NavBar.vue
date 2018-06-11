@@ -4,6 +4,7 @@
     <div class="navbar-nav">
       <router-link class="nav-item nav-link" to="/login" >Login</router-link>
       <router-link class="nav-item nav-link" to="/register" >Register</router-link>
+      <a href="#" class="nav-item nav-link">Logout</a>
     </div>
   </nav>
 </template>
