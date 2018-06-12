@@ -5,6 +5,13 @@ export default class UserService {
     {
         axios.defaults.baseURL = "http://localhost:8000/api/"
     }
+    index(term = ''){
+        return axios.get({
+            params: {
+                term
+            }
+        })
+    }
     register(first_name, last_name, email, password, password_confirmation) 
     {
         return axios.post('register', {
