@@ -14,6 +14,7 @@
 
 <script>
 import { userService } from '../services/UserService'
+import { mapMutations } from 'vuex';
 
 export default {
     data() {
@@ -24,13 +25,20 @@ export default {
         }
     },
     methods: {
+        ...mapMutations ([
+            'setIsAuth', 
+            'setAuthUserId'
+        ]),
         login() {
-            userService.login(this.email, this.password).then(() => {
-                this.$router.push('/movies')
-                this.setIsAuthenticated(true)
+            userService.login(this.email, this.password).then(response => {
+                this.$router.push('/')
+                this.setIsAuth(true)
+                this.setAuthUserId(response.data.user.id)
+                
             }).catch(error => {
                 this.errors = error.response.data.error 
             })
+            
         }
     }
 }

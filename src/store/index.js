@@ -6,34 +6,45 @@ import { userService } from '../services/UserService'
 Vue.use(Vuex)
 
 export const store = new Vuex.Store({
-  state: {
-    searchTerm: '',
-    galleries: []
-  },
-  getters: {
-    getSearchTerm(state) {
-      return state.searchTerm
+    state: {
+        galleries: [],
+        filterTerm: '',
+        isAuth: userService.isAuthenticated(),
+        authUserId: ''
     },
-    getGalleries(state) {
-      return state.galleries
-    }
-  },
-  mutations: {
-    setSearchTerm(state, searchTerm) {
-      state.searchTerm = searchTerm
+    getters: {
+        getGalleries(state) {
+            return state.galleries
+        },
+        getFilterTerm(state) {
+            return state.filterTerm
+        },
+        getIsAuth(state) {
+            return state.isAuth
+        },
+        getAuthUserId(state) {
+            return state.authUserId
+        }
     },
-    setGalleries(state, galleries) {
-      state.galleries = galleries
+    mutations: {
+        setGalleries(state, galleries) {
+            state.galleries = galleries
+        },
+        setFilterTerm(state, filterTerm) {
+            state.filterTerm = filterTerm
+        },
+        setIsAuth(state, isAuth) {
+            state.isAuth = isAuth
+        },
+        setAuthUserId(state, authUserId ){
+            state.authUserId = authUserId
+        }
+    },
+    actions: {
+        fetchGalleries(store) {
+            userService.index().then(response => {
+                store.commit('setGalleries', response.data)
+            })
+        }
     }
-  },
-  actions: {
-    fetchGalleries(store) {
-      userService.index().then(({ data }) => {
-        let galleries = data.map((gallery) => {
-          return movie
-        })
-        store.commit('setGalleries', galleries)
-      })
-    }
-  }
 })
