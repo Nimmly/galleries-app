@@ -48,13 +48,7 @@ export default {
         })
     },
     methods: {
-        onSlideStart (slide) {
-            this.sliding = true
-        },
-        onSlideEnd (slide) {
-            this.sliding = false
-        },
-        addComment(newComment, galleryId) {
+        addComment(newComment, gallery_id) {
             userService.addComment(this.newComment, this.$route.params.id)
         }
     },

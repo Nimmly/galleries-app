@@ -46,8 +46,8 @@ export default class UserService {
         localStorage.removeItem("loginToken")
         delete axios.defaults.headers.common["Authorization"]
     }
-    addComment(comment, galleryId){
-        return axios.post(`galleries/${galleryId}/comments`, comment)
+    addComment(comment, gallery_id){
+        return axios.post(`galleries/${gallery_id}/comments`, comment)
     }
 }
 
