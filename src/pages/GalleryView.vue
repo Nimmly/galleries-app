@@ -44,6 +44,7 @@
 
 <script>
 import { userService } from '../services/UserService'
+import { mapGetters } from 'vuex'
 
 export default {
     data() {
@@ -62,9 +63,14 @@ export default {
             })
         })
     },
+    computed:{
+        ...mapGetters({
+        currentUser: ["getAuthUserId"]
+        })
+    },
     methods: {
         addComment(newComment, gallery_id, user_id) {
-            userService.addComment(this.newComment, this.$route.params.id, this.gallery.user.id)
+            userService.addComment(this.newComment, this.$route.params.id, this.currentUser)
         },
         deleteThisGallery(id) {
             userService.deleteGallery(id).then(() => {
@@ -72,6 +78,9 @@ export default {
             })
         }
     },
+    created(){
+        console.log('test', this.currentUser)
+    }
        
 }
 

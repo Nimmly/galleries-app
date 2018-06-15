@@ -12,7 +12,7 @@
                 <router-link :to="{ name: 'gallery-view', params:{id: gallery.id} }">
                     <h4 class="card-title">{{ gallery.name }}{{ gallery.user_id.first_name }} {{ gallery.user_id.last_name }}</h4>
                 </router-link> 
-                <p class="card-text">{{ gallery.description }}</p>
+                <p class="card-text">{{ gallery.description }} {{currentUser}}</p>
             </div>
         </div>
         <div v-if="currentlyVisibleGalleries != 0">
@@ -75,8 +75,10 @@ export default {
         },    
     },
     created() {
-        this.fetchGalleries().then(()=>{this.empty = true})
-        
+        this.fetchGalleries().then(()=>{
+            this.empty = true
+            })
+        console.log('ovo je sa single', this.currentUser)
     }
 }
 </script>

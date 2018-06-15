@@ -15,7 +15,7 @@ export default class UserService {
     }
     showAuthor(user_id)
     {
-        return axios.get(`${user_id}/my-galleries`)
+        return axios.get(`my-galleries/${user_id}`)
     }
     register(first_name, last_name, email, password, password_confirmation) 
     {
@@ -35,6 +35,7 @@ export default class UserService {
         }).then(response => {
             localStorage.setItem('loginToken', response.data.token)
             this.setAxiosDefaultAuthorizationHeader()
+            return response
         })
     }
     setAxiosDefaultAuthorizationHeader() 

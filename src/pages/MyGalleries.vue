@@ -1,8 +1,11 @@
 <template>
 <div>
+     <h1>asdasjfhasjfhiashfisa</h1>
     <div v-for="(gallery, key) in galleries" :key="key">
         <img class="card-img-top" :src="gallery.images[0].imgURL" alt="Card image">
+        <p>{{gallery.name}}</p>
     </div>
+   
 </div>
 </template>
 
@@ -14,7 +17,7 @@ export default {
     
     data(){
         return {
-            galleries:[]
+            galleries:[],
         }
     },
     computed:{
@@ -23,13 +26,16 @@ export default {
         })
     },
     beforeRouteEnter( to, from, next ) {
-        
             next((vm) => {
-                userService.showAuthor(this.currentUser).then((response) => {
+                console.log(vm.currentUser)
+                userService.showAuthor(vm.currentUser).then((response) => {
                     vm.galleries = response.data
+                    console.log(response.data)
             })
         })
     },
+    created(){
+    }
 }
 </script>
 
