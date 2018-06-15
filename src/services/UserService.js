@@ -13,6 +13,10 @@ export default class UserService {
     {
         return axios.get(`galleries/${id}`)
     }
+    showAuthor(user_id)
+    {
+        return axios.get(`${user_id}/my-galleries`)
+    }
     register(first_name, last_name, email, password, password_confirmation) 
     {
         return axios.post('register', {
@@ -38,7 +42,8 @@ export default class UserService {
         const TOKEN = localStorage.getItem('loginToken')
         axios.defaults.headers.common["Authorization"] = `Bearer ${TOKEN}`
     }
-    isAuthenticated() {
+    isAuthenticated() 
+    {
         return !!localStorage.getItem("loginToken");
     }
     logout() 
@@ -46,8 +51,12 @@ export default class UserService {
         localStorage.removeItem("loginToken")
         delete axios.defaults.headers.common["Authorization"]
     }
-    addComment(comment, gallery_id){
-        return axios.post(`galleries/${gallery_id}/comments`, comment)
+    addComment(comment, gallery_id, user_id){
+        return axios.post(`galleries/${gallery_id}/comments`, comment, user_id)
+    }
+    deleteGallery(id) 
+    {
+        return axios.delete(`galleries/${id}`)
     }
 }
 

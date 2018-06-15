@@ -30,7 +30,7 @@ export default {
             'setAuthUserId'
         ]),
         login() {
-            userService.login(this.email, this.password).then(response => {
+            userService.login(this.email, this.password).then((response) => {
                 this.$router.push('/')
                 this.setIsAuth(true)
                 this.setAuthUserId(response.data.user.id)

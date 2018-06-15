@@ -1,12 +1,12 @@
 <template>
-    <div class="container">
+    <div class="container" v-if="empty">
         <hr>
         <b-form inline>
             <b-input class="col-11" placeholder="Filter galleries" @input="setFilterTermChange" />
             <b-button>Filter</b-button>
         </b-form>
         <hr>
-        <div class="card" v-for="(gallery, key) in currentlyVisibleMovies" :key="key">
+        <div class="card" v-for="(gallery, key) in currentlyVisibleGalleries" :key="key">
             <img class="card-img-top" :src="gallery.images[0].imgURL" alt="Card image">
             <div class="card-body">
                 <router-link :to="{ name: 'gallery-view', params:{id: gallery.id} }">
@@ -15,10 +15,13 @@
                 <p class="card-text">{{ gallery.description }}</p>
             </div>
         </div>
-        <div v-if="currentlyVisibleMovies != 0">
+        <div v-if="currentlyVisibleGalleries != 0">
             <galleries-paginator :pages="pages" v-if="pages > 1" @selected-page="onSelectedPage" :selected-page="selectedPage" />
         </div>
-    </div> 
+    </div>
+    <div v-else>
+        <p>There are no Galleries</p>
+    </div>
 </template>
 
 <script>
@@ -31,6 +34,7 @@ export default {
     },
     data() {
         return {
+            empty: false,
             selectedPage: 1
         };
     },
@@ -62,16 +66,17 @@ export default {
         pages() {
             return Math.ceil(this.filteredGalleries.length / 10)
         },
-        currentlyVisibleMovies() {
+        currentlyVisibleGalleries() {
             let bottomLimit = (this.selectedPage - 1) * 10
             let topLimit = bottomLimit + 10
-                return this.filteredGalleries.filter((movie, index) => {
+                return this.filteredGalleries.filter((gallery, index) => {
                 return index >= bottomLimit && index < topLimit;
             })
         },    
     },
     created() {
-        this.fetchGalleries();
+        this.fetchGalleries().then(()=>{this.empty = true})
+        
     }
 }
 </script>

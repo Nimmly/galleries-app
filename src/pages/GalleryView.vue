@@ -1,26 +1,43 @@
 <template>
 <div class="container">
+    <div>
+        <h1 class="text-center">{{ gallery.name }}</h1>
+        <h4 class="text-center"><i>by:</i> {{ gallery.user.first_name }} {{ gallery.user.last_name }}</h4>
+        <hr>
+        <h3 class="text-center">Description:</h3>
+        <div class="jumbotron">
+            <p class="text-lg-left">{{ gallery.description }}</p>
+        </div>
+
+    </div>
     <div class="row text-center text-lg-left">
         <div class="col-lg-3 col-md-4 col-xs-6" v-for="(image, key) in gallery.images" :key="key" >
-          <a href="#" class="d-block mb-4 h-100">
-            <img class="img-fluid img-thumbnail" :src="image.imgURL" alt="">
-          </a>
+            <div class="thumbnail">
+                <a href="#" class="d-block mb-4 h-100">
+                    <img class="img-fluid img-thumbnail" :src="image.imgURL" alt="">
+                </a>
+            </div>
         </div>
     </div>
     <div>
+        <button class="btn btn-danger" @click="deleteThisGallery(gallery.id)">Delete this gallery</button>
+    </div>
+    <hr>
+    <div>
         <form @submit.prevent="addComment">
-            <div class="form-group row">
-                <label for="text" class="col-4 col-form-label">Leave your comment</label> 
+            <div class="form-group ">
+                <label for="text" class="col-4 col-form-label">Comments:</label> 
                 <div class="col-8">
-                <textarea v-model="newComment.text" id="text" name="text" cols="40" rows="5" class="form-control"></textarea>
+                <textarea v-model="newComment.text" id="text" name="text" cols="40" rows="5" class="form-control" placeholder="Leave your comment"></textarea>
                 </div>
             </div> 
-            <div class="form-group row">
+            <div class="form-group ">
                 <div class="offset-4 col-8">
-                <button type="submit" class="btn btn-primary">Post Comment</button>
+                    <button type="submit" class="btn btn-primary">Post Comment</button>
                 </div>
             </div>
         </form>
+        
     </div>
 </div>
 </template>
@@ -32,8 +49,6 @@ export default {
     data() {
         return {
             gallery: [],
-            slide: 0,
-            sliding: null,
             newComment: {
                 text: ''
             }
@@ -48,8 +63,13 @@ export default {
         })
     },
     methods: {
-        addComment(newComment, gallery_id) {
-            userService.addComment(this.newComment, this.$route.params.id)
+        addComment(newComment, gallery_id, user_id) {
+            userService.addComment(this.newComment, this.$route.params.id, this.gallery.user.id)
+        },
+        deleteThisGallery(id) {
+            userService.deleteGallery(id).then(() => {
+            this.$router.push('/');
+            })
         }
     },
        

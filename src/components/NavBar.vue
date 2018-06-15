@@ -4,6 +4,8 @@
         <div class="navbar-nav">
             <router-link class="nav-item nav-link" to="/login" v-if="!isAuth">Login</router-link>
             <router-link class="nav-item nav-link" to="/register" v-if="!isAuth">Register</router-link>
+            <router-link class="nav-item nav-link" to="/create" v-if="isAuth">Create New Gallery</router-link>
+            <router-link class="nav-item nav-link" :to="{ name: 'my-galleries', params:{user_id: this.currentUser} }" v-if="isAuth">My Galleries</router-link>
             <a href="#" class="nav-item nav-link" @click="logout" v-if="isAuth">Logout</a>     
         </div> 
     </nav>
@@ -28,7 +30,8 @@ export default {
     },
     computed: {
         ...mapGetters({
-            isAuth: "getIsAuth"
+            isAuth: "getIsAuth",
+            currentUser: "getAuthUserId"
         })
     },
 }

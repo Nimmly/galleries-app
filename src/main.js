@@ -27,7 +27,7 @@ const routes = [
   { path: '/', component: AppGalleries },
   { path: '/login', component: Login },
   { path: '/register', component: Register },
-  { path: '/my-galleries', component: MyGalleries },
+  { path: '/:user_id/my-galleries', component: MyGalleries, name:'my-galleries'},
   { path: '/create', component: CreateNewGallery },
   { path: '/galleries/:id', component: GalleryView, name: 'gallery-view' }
 ]

@@ -10,7 +10,7 @@ export const store = new Vuex.Store({
         galleries: [],
         filterTerm: '',
         isAuth: userService.isAuthenticated(),
-        authUserId: ''
+        authUserId: '',
     },
     getters: {
         getGalleries(state) {
@@ -24,7 +24,7 @@ export const store = new Vuex.Store({
         },
         getAuthUserId(state) {
             return state.authUserId
-        }
+        },
     },
     mutations: {
         setGalleries(state, galleries) {
@@ -38,13 +38,13 @@ export const store = new Vuex.Store({
         },
         setAuthUserId(state, authUserId ){
             state.authUserId = authUserId
-        }
+        },
     },
     actions: {
         fetchGalleries(store) {
             userService.index().then(response => {
                 store.commit('setGalleries', response.data)
             })
-        }
+        },
     }
 })
