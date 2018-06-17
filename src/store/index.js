@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
+import { galleryService } from '../services/GalleryService'
 import { userService } from '../services/UserService'
 
 Vue.use(Vuex)
@@ -10,7 +11,7 @@ export const store = new Vuex.Store({
         galleries: [],
         filterTerm: '',
         isAuth: userService.isAuthenticated(),
-        authUserId: '',
+        authUserId: ''
     },
     getters: {
         getGalleries(state) {
@@ -42,7 +43,7 @@ export const store = new Vuex.Store({
     },
     actions: {
         fetchGalleries(store) {
-            userService.index().then(response => {
+            galleryService.index().then(response => {
                 store.commit('setGalleries', response.data)
             })
         },

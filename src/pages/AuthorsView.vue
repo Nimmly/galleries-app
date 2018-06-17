@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from 'vuex'
+
 import { galleryService } from '../services/GalleryService'
 
 export default {
@@ -24,19 +24,10 @@ export default {
             galleries:[],
         }
     },
-    computed:{
-        ...mapGetters({
-            currentUser: "getAuthUserId"
-        })
-    },
-    beforeRouteEnter( to, from, next ) {
-            next((vm) => {
-                galleryService.showUserGalleries(vm.currentUser).then((response) => {
-                    vm.galleries = response.data
-            })
-        })
-    },
     created(){
+        galleryService.showAuthorsGalleries(this.$route.params.id).then((response) => {
+            this.galleries = response.data
+        })
     }
 }
 </script>

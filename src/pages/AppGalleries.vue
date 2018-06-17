@@ -10,9 +10,14 @@
             <img class="card-img-top" :src="gallery.images[0].imgURL" alt="Card image">
             <div class="card-body">
                 <router-link :to="{ name: 'gallery-view', params:{id: gallery.id} }">
-                    <h4 class="card-title">{{ gallery.name }}{{ gallery.user_id.first_name }} {{ gallery.user_id.last_name }}</h4>
+                    <h4 class="card-title">{{ gallery.name }}</h4>
                 </router-link> 
-                <p class="card-text">{{ gallery.description }} {{currentUser}}</p>
+                <router-link 
+                    :to="{ name: 'authors-galleries', params:{id: gallery.user.id}}"
+                    >{{ gallery.user.first_name }} {{ gallery.user.last_name }}
+                </router-link>
+                <p class="card-text">{{ gallery.description }}</p>
+                <p class="card-text">{{ gallery.created_at | formatDate }}</p>
             </div>
         </div>
         <div v-if="currentlyVisibleGalleries != 0">
@@ -27,8 +32,11 @@
 <script>
 import { mapGetters, mapActions, mapMutations } from "vuex"
 import GalleriesPaginator from '../components/GalleriesPaginator.vue'
+import { DateMixin } from '../mixins'
 
 export default {
+    mixins: [ DateMixin ],
+
     components:{
         GalleriesPaginator
     },
@@ -78,7 +86,6 @@ export default {
         this.fetchGalleries().then(()=>{
             this.empty = true
             })
-        console.log('ovo je sa single', this.currentUser)
     }
 }
 </script>

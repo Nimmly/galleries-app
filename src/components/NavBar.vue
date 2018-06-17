@@ -1,11 +1,12 @@
 <template>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <router-link class="navbar-brand" to="/">All Galleries</router-link>
+        <h1 class="navbar-brand">Galleries</h1>
         <div class="navbar-nav">
+            <router-link class="nav-item nav-link" to="/">All Galleries</router-link>
             <router-link class="nav-item nav-link" to="/login" v-if="!isAuth">Login</router-link>
             <router-link class="nav-item nav-link" to="/register" v-if="!isAuth">Register</router-link>
-            <router-link class="nav-item nav-link" to="/create" v-if="isAuth">Create New Gallery</router-link>
             <router-link class="nav-item nav-link" to="/my-galleries" v-if="isAuth">My Galleries</router-link>
+            <router-link class="nav-item nav-link" to="/create" v-if="isAuth">Create New Gallery</router-link>
             <a href="#" class="nav-item nav-link" @click="logout" v-if="isAuth">Logout</a>     
         </div> 
     </nav>

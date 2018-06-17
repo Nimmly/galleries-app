@@ -27,15 +27,13 @@ export default {
     methods: {
         ...mapMutations ([
             'setIsAuth', 
-            'setAuthUserId'
+            'setAuthUserId',
         ]),
         login() {
             userService.login(this.email, this.password).then((response) => {
                 this.$router.push('/')
                 this.setIsAuth(true)
-                console.log(response.data.user.id)
-                this.setAuthUserId(response.data.user.id)
-                
+                this.setAuthUserId(response.data.user.id)   
             }).catch(error => {
                 this.errors = error.response.data.error 
             })
